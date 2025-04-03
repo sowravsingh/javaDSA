@@ -9,13 +9,14 @@ public class LeetCodeProblem7 {
         LeetCodeProblem7 ll = new LeetCodeProblem7();
         int[][] questions={{1,1},{2,2},{3,3},{4,4},{5,5}};
         long[] dp = new long[questions.length];
-        int[] arr ={12,6,1,2,7};
+        int[] arr ={1000000,1,1000000};
         Arrays.fill(dp,-1);
         System.out.println(ll.maximumTripletValue(arr));
 
     }
 
 
+    // leetcode problem 2874
     public long maximumTripletValue(int[] nums) {
         int[]prefixMax =new int[nums.length];
         int[]suffixMax = new int[nums.length];
@@ -33,8 +34,7 @@ public class LeetCodeProblem7 {
         }
 
         for (int i =1;i<nums.length-1;i++){
-
-            maxResult= Math.max(maxResult,(long) (prefixMax[i-1] - nums[1]) * suffixMax[i+1]);
+            maxResult= Math.max(maxResult,(Long.valueOf(prefixMax[i-1])-Long.valueOf(nums[i]))*Long.valueOf(suffixMax[i+1]));
         }
 
         return  maxResult;
