@@ -17,12 +17,48 @@ public class LeetCodeProblem6 {
 ////        }
 
 
-     int[] nums ={10,12,19,14};
+     int[] nums ={1000000,1,1000000};
      int[][] arr ={{0,1},{1,4},{1,1},{1,4},{1,1}};
-        System.out.println(ll.maximumSum(nums));
+        System.out.println(ll.maximumTripletValue(nums));
     }
 
+    public long maximumTripletValue(int[] nums) {
+        Long maxTriplet = 0L;
 
+        for (int  i =0;i<nums.length;i++){
+            for (int j =i+1;j<nums.length;j++){
+                for (int k =j+1;k<nums.length;k++){
+                    Long result = (Long.valueOf(nums[i])-Long.valueOf(nums[j]))*Long.valueOf(nums[k]);
+                    maxTriplet= Math.max(maxTriplet,result);
+                }
+            }
+        }
+
+        return maxTriplet;
+    }
+
+    public int lengthOfLongestSubstring(String s) {
+        HashSet<Character> charSet = new HashSet<>();
+
+        int maxLen =1;
+        int left =0;
+
+        for (int i =0;i<s.length();i++){
+            if (charSet.add(s.charAt(i))){
+               maxLen= Math.max(maxLen,i-left+1);
+            }else {
+                boolean isAdded =false;
+                while (!isAdded){
+                    charSet.remove(s.charAt(left));
+                    left++;
+                    isAdded= charSet.add(s.charAt(i));
+                }
+            }
+        }
+
+
+        return maxLen;
+    }
 
 
     public int maximumSum(int[] nums) {
