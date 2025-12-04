@@ -3,6 +3,7 @@ package LeetcodeProblems;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 public class LeetCodeProblem7 {
 
@@ -11,11 +12,86 @@ public class LeetCodeProblem7 {
         LeetCodeProblem7 ll = new LeetCodeProblem7();
         int[][] questions={{1,1},{2,2},{3,3},{4,4},{5,5}};
         long[] dp = new long[questions.length];
-        int[] arr ={4,5,6,4,4};
-        Arrays.fill(dp,-1);
-        System.out.println(ll.countLargestGroup(13));
+        int[] arr ={6, 6, 1, 1, 1, 7};
+       // Arrays.fill(dp,-1);
+        System.out.println(ll.isPossible(arr,2,11));
 
     }
+
+
+    public boolean isPossible(int[] arr, int k, int target){
+        int left = 0;
+        int right = 0;
+        int currentSum = 0;
+        int count = 0;
+
+        while (right < arr.length) {
+            currentSum = currentSum + arr[right];
+            count++;
+
+            if (count == k) {
+                if (currentSum > target) {
+                    return false;
+                } else {
+                    currentSum = currentSum - arr[left];
+                    left++;
+                    count--;
+                }
+            }
+            right++;
+        }
+
+        return true;
+    }
+
+    public int minCostToMoveChips(int[] position) {
+        int evenPlaces =0;
+        int oddPlaces=0;
+        for(int num : position){
+            if(num%2 ==0){
+                evenPlaces++;
+            }else {
+                oddPlaces++;
+            }
+        }
+        return Math.min(evenPlaces,oddPlaces);
+
+    }
+
+
+    public int[] plusOne(int[] A) {
+        Stack<Integer> stack = new Stack<>();
+        int carry =1;
+        for(int i =A.length-1;i>=0;i--){
+            if(carry ==1){
+                if(A[i]+1 ==10){
+                    stack.push(0);
+                }else{
+                    stack.push(A[i]+1);
+                    carry=0;
+                }
+
+            }else{
+                stack.push(A[i]);
+            }
+        }
+
+        if(carry==1){
+            stack.push(1);
+        }
+
+        int[] finalArray  = new int[stack.size()];
+
+        int size = stack.size();
+        for(int i =0;i<stack.size();i++){
+            finalArray[i]= stack.pop();
+        }
+
+        System.out.println(Arrays.toString(finalArray));
+        return finalArray;
+
+    }
+
 
 
     public int countLargestGroup(int n) {
